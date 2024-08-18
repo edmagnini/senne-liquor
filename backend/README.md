@@ -57,7 +57,7 @@ As funcionalidades são:
 → Lista de Médicos;
 
 📋 Documentação:
-https://localhost:3003/api-docs/
+http://localhost:3003/api-docs/
 
 🛠️ Tecnologias utilizadas:
 
