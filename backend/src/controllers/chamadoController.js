@@ -3,7 +3,7 @@ const HospitalService = require("../services/hospitalService")
 const MedicoService = require("../services/medicoService")
 const ExceptionHandler = require("../utils/exceptionHandler")
 const Chamado = require("../models/chamado")
-const { newChamadoSchema } = require("../utils/validator");
+const { newChamadoSchema, updateChamadoSchema } = require("../utils/validator");
 
 
 class ChamadoController {
@@ -31,9 +31,9 @@ class ChamadoController {
 
             const existingHospital = await this.hospitalService.getHospitalById(cd_hospital)
             if (!existingHospital) throw ExceptionHandler.notFound("Hospital não encontrado")
-            
-                const existingMedico = await this.medicoService.getMedicoById(cd_medico)
-                if (!existingMedico) throw ExceptionHandler.notFound("Medico não encontrado")
+
+            const existingMedico = await this.medicoService.getMedicoById(cd_medico)
+            if (!existingMedico) throw ExceptionHandler.notFound("Medico não encontrado")
 
             const newChamado = new Chamado(
                 cd_hospital,
@@ -43,10 +43,32 @@ class ChamadoController {
                 ie_status_chamado,
                 cd_medico
             )
-            
+
             await this.chamadoService.createChamado(newChamado)
 
             res.status(201).send("Chamado criado com sucesso");
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async updateChamado(req, res, next) {
+        try {
+            await updateChamadoSchema.validate(req.body)
+
+            const { nr_chamado, cd_medico } = req.body
+
+            const existingMedico = await this.medicoService.getMedicoById(cd_medico)
+            if (!existingMedico) throw ExceptionHandler.notFound("Medico não encontrado")
+            
+            const updateChamadoPayload = {
+                nr_chamado,
+                cd_medico
+            }
+
+            await this.chamadoService.updateChamado(updateChamadoPayload)
+
+            res.status(200).send("Chamado atualizado com sucesso");
         } catch (error) {
             next(error)
         }

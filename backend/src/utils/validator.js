@@ -21,11 +21,16 @@ const newChamadoSchema = yup.object({
     ie_status_chamado: yup.string().oneOf(['A', 'E', 'C'], 'Status do chamado deve ser "A", "E" ou "C"').required('Status do chamado é obrigatório'),
     cd_medico: yup.number().integer('O código do médico deve ser um número inteiro').required('O código do médico é obrigatório'),
 });
+const updateChamadoSchema = yup.object({
+    nr_chamado: yup.number().required('O número do chamado é obrigatório'),
+    cd_medico: yup.number().integer('O código do médico deve ser um número inteiro').required('O código do médico é obrigatório'),
+});
 
 
 module.exports = {
     emailSchema,
     loginSchema,
     registerSchema,
-    newChamadoSchema
+    newChamadoSchema,
+    updateChamadoSchema
 };

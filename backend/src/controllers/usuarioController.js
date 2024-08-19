@@ -1,6 +1,6 @@
 const UsuarioService = require("../services/usuarioService")
 const ExceptionHandler = require("../utils/exceptionHandler")
-const HashManager = require("../utils/HashManager")
+const HashManager = require("../utils/hashManager")
 const Authenticator = require("../utils/authenticator")
 const Usuario = require("../models/usuario")
 const { emailSchema, loginSchema, registerSchema } = require("../utils/validator");

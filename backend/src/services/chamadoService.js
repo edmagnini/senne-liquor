@@ -39,11 +39,20 @@ class ChamadoService {
 
     async createChamado(createChamadoPayload) {
         const { cd_hospital, ie_tipo_chamado, nm_paciente, ie_sexo, ie_status_chamado, cd_medico } = createChamadoPayload
-    
+
         const chamado = await db("CHAMADO")
             .insert({ CD_HOSPITAL: cd_hospital, IE_TIPO_CHAMADO: ie_tipo_chamado, NM_PACIENTE: nm_paciente, IE_SEXO: ie_sexo, IE_STATUS_CHAMADO: ie_status_chamado, CD_MEDICO: cd_medico })
             .returning('*')
-        
+
+        return chamado ? chamado : null
+    }
+
+    async updateChamado(updateChamadoPayload) {
+        const { nr_chamado, cd_medico } = updateChamadoPayload
+        const chamado = await db("CHAMADO")
+            .where('NR_CHAMADO', nr_chamado)
+            .update({ 'CD_MEDICO': cd_medico })
+
         return chamado ? chamado : null
     }
 }

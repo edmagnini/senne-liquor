@@ -1,5 +1,5 @@
 
-const { emailSchema, loginSchema, registerSchema, newChamadoSchema } = require("../utils/validator");
+const { emailSchema, loginSchema, registerSchema, newChamadoSchema, updateChamadoSchema } = require("../utils/validator");
 const ExceptionHandler = require("../utils/exceptionHandler")
 
 const validate = (schema) => (req, res, next) => {
@@ -14,4 +14,5 @@ module.exports = {
     validateLogin: validate(loginSchema),
     validateRegister: validate(registerSchema),
     validateNewChamado: validate(newChamadoSchema),
+    validateUpdateChamado: validate(updateChamadoSchema),
 };
