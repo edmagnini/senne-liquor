@@ -6,8 +6,6 @@ class ChamadoService {
 
     async getChamado(queryParams) {
         const {
-            page = 1,
-            limit = 30,
             nr_chamado,
             cd_hospital,
             ie_tipo_chamado,
@@ -17,12 +15,9 @@ class ChamadoService {
             cd_medico
         } = queryParams;
 
-        const offset = (page - 1) * limit;
 
         const query = db("CHAMADO")
             .select()
-            .limit(limit)
-            .offset(offset);
 
         if (nr_chamado) query.where('NR_CHAMADO', `${nr_chamado}`);
         if (cd_hospital) query.where('CD_HOSPITAL', `${cd_hospital}`);

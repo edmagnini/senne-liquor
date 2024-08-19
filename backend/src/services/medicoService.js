@@ -7,18 +7,12 @@ class MedicoService {
 
     async getMedico(queryParams) {
         const {
-            page = 1,
-            limit = 30,
             cd_medico,
             nm_medico,
         } = queryParams;
 
-        const offset = (page - 1) * limit;
-
         const query = db("MEDICO")
             .select()
-            .limit(limit)
-            .offset(offset);
 
         if (cd_medico) query.where('CD_MEDICO', 'like', `%${cd_medico}%`);
         if (nm_medico) query.where(db.raw('LOWER("NM_MEDICO")'), 'like', `%${nm_medico.toLowerCase()}%`);
