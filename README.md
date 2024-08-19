@@ -1,4 +1,4 @@
-# Senne Liquor API
+# Senne Liquor
 
 ## Backend - NodeJS - PostgreSQL
 ## Frontend - ReactJS
