@@ -1,8 +1,54 @@
-# React + Vite
+# Senne Liquor Front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Primeiros Passos
 
-Currently, two official plugins are available:
+- Clonar este repositório
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### No diretório raíz do projeto executar os seguintes comandos:
+
+- docker-compose build
+
+- docker-compose up
+
+
+## Sobre o projeto
+
+Front-end para consumo da aplicação de back-end disponibilizada neste mesmo repositório.
+
+As funcionalidades são:
+
+→ Login
+
+→ Refresh token;
+
+→ Exibir lista de chamados;
+
+→ Mapa de distribuição de chamados;
+
+→ Criar novo chamado;
+
+→ Atribuir chamado;
+
+→ Exibir lista de hospitais;
+
+→ Exibir lista de médicos;
+
+
+🛠️ Tecnologias utilizadas:
+
+→ ReactJS;
+
+→ Axios;
+
+→ ShadCNUI:
+
+→ Leaflet;
+
+→ TailwindCSS;
+
+→ Hookform;
+
+→ Zod;
+
+→ Vite;
+```
