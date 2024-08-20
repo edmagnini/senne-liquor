@@ -3,8 +3,8 @@
 ## Primeiros Passos
 
 - Clonar este repositório
-- Executar `npm install` para adicionar as dependências
-- Criar um arquivo .env na raiz do projeto e preencher as chaves a seguir com os valores apropriados:
+- Criar um arquivo .env na raiz do projeto e preencher as chaves a seguir com os valores apropriados: JWT_KEY=ChaveSecreta JWT_EXPIRES_IN=10min
+```
   JWT_KEY=ChaveSecreta
   JWT_EXPIRES_IN=10min
 
@@ -24,6 +24,12 @@
   USER_EMAIL = "jose@example.com"
   USER_PASSWORD="SomePass@"
 ```
+
+### No diretório raíz do projeto executar os seguintes comandos:
+
+- docker-compose build
+
+- docker-compose up
 
 
 ## Sobre o projeto
@@ -56,6 +62,10 @@ As funcionalidades são:
 
 → Lista de Médicos;
 
+→ Gerar JWTtoken;
+
+→ Refreshh JWTtoken;
+
 📋 Documentação:
 http://localhost:3003/api-docs/
 
@@ -76,4 +86,6 @@ http://localhost:3003/api-docs/
 → Yup;
 
 → Swagger;
-```
+
+→ Docker;
+

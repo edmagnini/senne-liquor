@@ -44,9 +44,13 @@ class UsuarioController {
             const cypherPass = await this.hashManager.compare(senha, user.DS_SENHA)
             if (!cypherPass) throw ExceptionHandler.badRequest('Credenciais inválidas');
 
-            const token = this.authenticator.generateToken(user.CD_USUARIO)
+            const accessToken = this.authenticator.generateToken(user.CD_USUARIO, '15m');  // short-lived access token
+            const refreshToken = this.authenticator.generateToken(user.CD_USUARIO, '7d');
 
-            res.status(200).json({ token: `Bearer ${token}` })
+            res.status(200).json({
+                accessToken: `Bearer ${accessToken}`,
+                refreshToken: `Bearer ${refreshToken}`
+            });
         } catch (error) {
             next(error)
         }
@@ -72,6 +76,24 @@ class UsuarioController {
             res.status(201).send("Usuário criado com sucesso")
         } catch (error) {
             next(error)
+        }
+    }
+
+    async refreshToken(req, res, next) {
+        try {
+            const { refreshToken } = req.headers;
+            if (!refreshToken) throw ExceptionHandler.badRequest('Refresh token é requirido');
+
+            const token = refreshToken.replace('Bearer ', '');
+
+            const tokenData = this.authenticator.getTokenData(token);
+            if (!tokenData) throw ExceptionHandler.unauthorized('Refresh token é inválido');
+
+            const newAccessToken = this.authenticator.generateToken(tokenData);
+
+            res.status(200).json({ accessToken: `Bearer ${newAccessToken}` });
+        } catch (error) {
+            next(error);
         }
     }
 }
