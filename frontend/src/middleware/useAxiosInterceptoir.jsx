@@ -17,10 +17,11 @@ export const useAxiosInterceptor = () => {
         return Promise.reject(error);
       }
     );
-
+    
     const responseInterceptor = axios.interceptors.response.use(
       (response) => response,
       async (error) => {
+        const refreshToken = localStorage.getItem('refreshToken');
         const originalRequest = error.config;
 
         if (error.response?.status === 401 && !originalRequest._retry) {
@@ -28,7 +29,7 @@ export const useAxiosInterceptor = () => {
 
           try {
             console.log('Attempting to refresh token...');
-            const { data } = await axios.post(`${apiUrl}/refresh-token`);
+            const { data } = await axios.post(`${apiUrl}/refresh-token`, {refreshToken: refreshToken});
             const newToken = data.token;
             localStorage.setItem('senneToken', newToken);
             axios.defaults.headers.common['Authorization'] = `${newToken}`;
