@@ -4,6 +4,8 @@ exports.up = function(knex) {
       table.string('NM_USUARIO').notNullable();
       table.string('DS_EMAIL').notNullable().unique();
       table.string('DS_SENHA').notNullable();
+      table.string('DS_LONGITUDE');
+      table.string('DS_LATITUDE');
     });
   };
   

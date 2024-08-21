@@ -2,7 +2,7 @@ const { sign, verify } = require("jsonwebtoken");
 
 class Authenticator {
     generateToken(payload, expiresIn) {
-        const { id } = payload;
+        const  id  = payload;
         const token = sign(
             { id: id },
             process.env.JWT_KEY,

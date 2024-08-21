@@ -81,7 +81,7 @@ class UsuarioController {
 
     async refreshToken(req, res, next) {
         try {
-            const { refreshToken } = req.headers;
+            const { refreshToken } = req.body;
             if (!refreshToken) throw ExceptionHandler.badRequest('Refresh token é requirido');
 
             const token = refreshToken.replace('Bearer ', '');
@@ -92,6 +92,33 @@ class UsuarioController {
             const newAccessToken = this.authenticator.generateToken(tokenData);
 
             res.status(200).json({ accessToken: `Bearer ${newAccessToken}` });
+        } catch (error) {
+            console.log(error)
+            next(error);
+        }
+    }
+
+    async registerLocation(req, res, next) {
+        try {
+            const token = req.headers.authorization;
+            if (!token) throw ExceptionHandler.badRequest('Sem autorização');
+
+            const tokenWtBe = token.replace('Bearer ', '');
+
+            const {latitude, longitude} = req.body
+
+            const tokenData = this.authenticator.getTokenData(tokenWtBe);
+            if (!tokenData) throw ExceptionHandler.unauthorized('Token inválido');
+
+            const usuarioPayload = {
+                cd_usuario: tokenData.id,
+                ds_latitude: latitude,
+                ds_longitude: longitude
+            }
+
+            await this.usuarioService.registerLocationApp(usuarioPayload)
+
+            res.status(200).send("Atualização recebida com sucesso");
         } catch (error) {
             next(error);
         }

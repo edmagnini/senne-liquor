@@ -1,9 +1,18 @@
 #!/bin/sh
 # entrypoint.sh
 
-db_initialized() {
+check_tables_exist() {
+  # SQL query to check if tables exist
+  SQL="SELECT to_regclass('public.USUARIO');"
+  # Run the query using psql
+  TABLES_EXIST=$(psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -t -c "$SQL" | xargs)
 
-  knex migrate:currentVersion --knexfile /usr/app/knexfile.js 2>/dev/null
+  # Check if the result is not null (meaning the table exists)
+  if [ "$TABLES_EXIST" = "public.usuario" ]; then
+    return 0 # Tables exist
+  else
+    return 1 # Tables do not exist
+  fi
 }
 
 until nc -z -v -w30 postgres 5432
@@ -14,12 +23,13 @@ done
 
 echo "PostgreSQL is up - checking if database is initialized"
 
-if ! db_initialized; then
-  echo "Database not initialized - running migrations and seeding"
+if ! check_tables_exist; then
+  echo "Tables do not exist - running migrations and seeding"
   npm run migrate
   npm run seed
 else
-  echo "Database already initialized - skipping migrations and seeding"
+  echo "Tables already exist - skipping migrations and seeding"
 fi
 
+echo "Starting application..."
 exec npm start
