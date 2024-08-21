@@ -14,9 +14,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 const formatColumnHeader = (header) => {
     return header
-        .replace(/_/g, ' ') // Replace underscores with spaces
-        .toLowerCase()     // Convert to lowercase
-        .replace(/(?:^|\s)\S/g, a => a.toUpperCase()); // Capitalize the first letter of each word
+        .replace(/_/g, ' ') 
+        .toLowerCase()    
+        .replace(/(?:^|\s)\S/g, a => a.toUpperCase());
 };
 
 function TableComponent({ columns, data }) {

@@ -41,12 +41,14 @@ export default function InputForm() {
         let messageDescription = ''
         try {
             const loginHandler = await axios.post(`${apiUrl}/usuario/login`, data)
+            console.log(data)
             if (loginHandler.status == 200) messageTitle = 'Login realizado com sucesso', messageDescription = 'Estamos te direcionando para página principal'
             localStorage.setItem('senneToken', loginHandler.data.accessToken);
             localStorage.setItem('refreshToken', loginHandler.data.refreshToken);
-            navigate('/home');
+            navigate('/chamados/create');
         // eslint-disable-next-line no-unused-vars
         } catch (err) {
+            console.log(err)
             messageTitle = 'Falha na tentativa de acesso', messageDescription = 'Credenciais inválidas'
         }
         toast({

@@ -28,14 +28,14 @@ export const MainRouter = () => {
       <HeaderWrapper />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<ProtectedRoute element={<Home />} />} />
+        <Route path="/" element={<ProtectedRoute element={<Chamados />} />} />
         <Route path="/chamados" element={<ProtectedRoute element={<Chamados />} />} />
         <Route path="/chamados/create" element={<ProtectedRoute element={<ChamadoCreate />} />} />
         <Route path="/chamados/assign" element={<ProtectedRoute element={<ChamadoAssign />} />} />
         <Route path="/medicos" element={<ProtectedRoute element={<Medicos />} />} />
         <Route path="/hospitais" element={<ProtectedRoute element={<Hospitais />} />} />
       </Routes>
-      <Toaster />
+      <Toaster className='z-20' />
       <ModeToggle />
     </Router>
   );
